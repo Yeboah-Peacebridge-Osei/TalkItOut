@@ -6,72 +6,102 @@
 //
 
 import SwiftUI
-import CoreData
+import AVFoundation
+
+class AudioRecorder: NSObject, ObservableObject {
+    private var audioRecorder: AVAudioRecorder?
+    @Published var isRecording = false
+    
+    override init() {
+        super.init()
+        setupAudioSession()
+    }
+    
+    private func setupAudioSession() {
+        #if os(iOS)
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, mode: .default)
+            try session.setActive(true)
+        } catch {
+            print("Failed to set up audio session: \(error)")
+        }
+        #endif
+    }
+    
+    func startRecording() {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        do {
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder?.record()
+            isRecording = true
+        } catch {
+            print("Could not start recording: \(error)")
+        }
+    }
+    
+    func stopRecording() {
+        audioRecorder?.stop()
+        isRecording = false
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+}
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @StateObject private var audioRecorder = AudioRecorder()
+    @StateObject private var speechRecognizer = SpeechRecognizer()
+    @State private var showingPermissionAlert = false
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        VStack {
+            Spacer()
+
+            Button(action: toggleRecording) {
+                Label(audioRecorder.isRecording ? "Stop Recording" : "Start Recording",
+                      systemImage: audioRecorder.isRecording ? "stop.circle.fill" : "mic.circle.fill")
+                    .foregroundColor(audioRecorder.isRecording ? .red : .blue)
+                    .font(.largeTitle)
+                    .padding(30)
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(Capsule())
             }
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
+            .padding(.bottom, 40)
+        }
+        .alert("Microphone Access Required", isPresented: $showingPermissionAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Please allow microphone access in Settings to use the recording feature.")
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    
+    private func toggleRecording() {
+        if audioRecorder.isRecording {
+            audioRecorder.stopRecording()
+        } else {
+            #if os(iOS)
+            AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        audioRecorder.startRecording()
+                    } else {
+                        showingPermissionAlert = true
+                    }
+                }
             }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            #else
+            audioRecorder.startRecording()
+            #endif
         }
     }
 }
