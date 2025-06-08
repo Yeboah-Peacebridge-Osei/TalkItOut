@@ -4,6 +4,8 @@ import AVFoundation
 
 class SpeechRecognizer: NSObject, ObservableObject {
     @Published var transcript: String = ""
+    
+    #if os(iOS)
     private let recognizer = SFSpeechRecognizer()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
@@ -57,4 +59,18 @@ class SpeechRecognizer: NSObject, ObservableObject {
         audioEngine.stop()
         recognitionRequest?.endAudio()
     }
+    #else
+    // Placeholder implementation for macOS
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        completion(false)
+    }
+    
+    func startTranscribing() throws {
+        throw NSError(domain: "SpeechRecognizer", code: 1, userInfo: [NSLocalizedDescriptionKey: "Speech recognition is not available on macOS"])
+    }
+    
+    func stopTranscribing() {
+        // No-op for macOS
+    }
+    #endif
 }
