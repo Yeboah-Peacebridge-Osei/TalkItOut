@@ -1,0 +1,14 @@
+# Ignore Xcode project files
+*.xcworkspace
+xcuserdata/
+
+# Ignore build products
+build/
+DerivedData/
+
+# Ignore user-specific files
+*.swp
+*.xcuserstate
+
+# Ignore secrets
+TalkItOut/Secrets.plist 
