@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    var entries: [JournalEntry] = []
+    @EnvironmentObject var journalEntriesModel: JournalEntriesModel
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -15,7 +15,7 @@ struct ProfileView: View {
                     .padding(.top, 8)
                 // Simple grid of entries as before
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 12)], spacing: 12) {
-                    ForEach(entries) { entry in
+                    ForEach(journalEntriesModel.entries) { entry in
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.white.opacity(0.08))
@@ -44,9 +44,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(entries: [
-            JournalEntry(date: Date(), transcript: "Test", audioURL: URL(string: "file:///test.m4a")!),
-            JournalEntry(date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, transcript: "Test2", audioURL: URL(string: "file:///test2.m4a")!)
-        ])
+        ProfileView().environmentObject(JournalEntriesModel())
     }
 } 

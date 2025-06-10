@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B4B5C1A2DF8C641005F9638 /* JournalEntriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */; };
 		1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */; };
 		1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8992DED586000C7B8F2 /* Persistence.swift */; };
 		1B7BA89D2DED586000C7B8F2 /* TalkItOut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA89B2DED586000C7B8F2 /* TalkItOut.xcdatamodeld */; };
@@ -18,6 +19,12 @@
 		1B7BA8BB2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8BA2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift */; };
 		1B9391A92DF4D2C9006E7710 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */; };
 		1B9391AF2DF603A4006E7710 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391AE2DF603A4006E7710 /* CameraView.swift */; };
+		1B9391B12DF64CEE006E7710 /* SentimentAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */; };
+		1B9391B32DF6548B006E7710 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B22DF6548B006E7710 /* OpenAIService.swift */; };
+		1B9391B52DF6549E006E7710 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B9391B42DF6549E006E7710 /* Secrets.plist */; };
+		1B9391B72DF7A2D5006E7710 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */; };
+		1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B82DF7AB54006E7710 /* MainTabView.swift */; };
+		1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntriesModel.swift; sourceTree = "<group>"; };
 		1B7BA8942DED586000C7B8F2 /* TalkItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutApp.swift; sourceTree = "<group>"; };
 		1B7BA8992DED586000C7B8F2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -54,6 +62,12 @@
 		1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		1B9391AC2DF568CE006E7710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = TalkItOut/Info.plist; sourceTree = "<group>"; };
 		1B9391AE2DF603A4006E7710 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentAnalyzer.swift; sourceTree = "<group>"; };
+		1B9391B22DF6548B006E7710 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		1B9391B42DF6549E006E7710 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
+		1B9391B82DF7AB54006E7710 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +119,13 @@
 		1B7BA8962DED586000C7B8F2 /* TalkItOut */ = {
 			isa = PBXGroup;
 			children = (
+				1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */,
+				1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */,
+				1B9391B82DF7AB54006E7710 /* MainTabView.swift */,
+				1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */,
+				1B9391B42DF6549E006E7710 /* Secrets.plist */,
+				1B9391B22DF6548B006E7710 /* OpenAIService.swift */,
+				1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */,
 				1B9391AE2DF603A4006E7710 /* CameraView.swift */,
 				1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */,
 				1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */,
@@ -248,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B7BA8A52DED586200C7B8F2 /* Preview Assets.xcassets in Resources */,
+				1B9391B52DF6549E006E7710 /* Secrets.plist in Resources */,
 				1B7BA8A12DED586200C7B8F2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,9 +298,15 @@
 				1B9391A92DF4D2C9006E7710 /* SpeechRecognizer.swift in Sources */,
 				1B7BA89D2DED586000C7B8F2 /* TalkItOut.xcdatamodeld in Sources */,
 				1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */,
+				1B9391B32DF6548B006E7710 /* OpenAIService.swift in Sources */,
 				1B9391AF2DF603A4006E7710 /* CameraView.swift in Sources */,
 				1B7BA89F2DED586000C7B8F2 /* ContentView.swift in Sources */,
+				1B4B5C1A2DF8C641005F9638 /* JournalEntriesModel.swift in Sources */,
+				1B9391B72DF7A2D5006E7710 /* JournalEntry.swift in Sources */,
+				1B9391B12DF64CEE006E7710 /* SentimentAnalyzer.swift in Sources */,
 				1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */,
+				1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */,
+				1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

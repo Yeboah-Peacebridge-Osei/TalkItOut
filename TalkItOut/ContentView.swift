@@ -7,10 +7,13 @@
 
 import SwiftUI
 import AVFoundation
+import Combine
+import AVKit
 
 class AudioRecorder: NSObject, ObservableObject {
     private var audioRecorder: AVAudioRecorder?
     @Published var isRecording = false
+    @Published var lastRecordingURL: URL? = nil
     
     override init() {
         super.init()
@@ -31,6 +34,7 @@ class AudioRecorder: NSObject, ObservableObject {
     
     func startRecording() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        lastRecordingURL = audioFilename
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -61,7 +65,19 @@ class AudioRecorder: NSObject, ObservableObject {
 struct ContentView: View {
     @StateObject private var audioRecorder = AudioRecorder()
     @StateObject private var speechRecognizer = SpeechRecognizer()
+    @StateObject private var sentimentAnalyzer = SentimentAnalyzer()
     @State private var showingPermissionAlert = false
+    @State private var detectedTopic: String = ""
+    @State private var journalingPrompt: String = ""
+    @State private var isLoadingPrompt: Bool = false
+    @State private var showAIResult: Bool = false
+    @State private var scrollToBottom: Bool = true
+    @Namespace private var lyricsBottom
+    @EnvironmentObject var journalEntriesModel: JournalEntriesModel
+    @State private var streakCount: Int = 0
+    @State private var lastEntryDate: Date? = nil
+    @State private var showPlayer: Bool = false
+    @State private var playerURL: URL? = nil
     
     private var currentTime: String {
         let formatter = DateFormatter()
@@ -72,6 +88,27 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 24) {
+                // Show motivational message if not recording and transcript is empty
+                if !audioRecorder.isRecording && speechRecognizer.transcript.isEmpty {
+                    Text("Talk it and let it all out")
+                        .font(.title2)
+                        .italic()
+                        .foregroundColor(.white)
+                        .padding(.top, 40)
+                }
+                // Streak indicator
+                HStack {
+                    Image(systemName: "flame.fill")
+                        .foregroundColor(.orange)
+                        .scaleEffect(streakCount > 0 ? 1.2 : 1.0)
+                        .animation(.easeInOut, value: streakCount)
+                    Text("Streak: \(streakCount) day\(streakCount == 1 ? "" : "s")")
+                        .font(.headline)
+                        .foregroundColor(.orange)
+                }
+                .padding(.top, 8)
+                .opacity(streakCount > 0 ? 1 : 0.5)
+
                 // Camera preview
                 CameraView()
                     .frame(height: 280)
@@ -80,15 +117,6 @@ struct ContentView: View {
                     .padding(.horizontal)
 
                 Spacer().frame(height: 48) // Add more space below camera
-
-                // Motivational prompt
-                Text("What's on your mind right now?")
-                    .font(.title2)
-                    .italic()
-                    .foregroundColor(.white)
-                    .padding(.top, 8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
 
                 // Journal entry info
                 VStack(alignment: .leading, spacing: 2) {
@@ -102,15 +130,48 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
 
-                // Live transcript display
+                // Live transcript display as lyrics
                 if !speechRecognizer.transcript.isEmpty {
-                    Text(speechRecognizer.transcript)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .padding()
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 8) {
+                                ForEach(splitTranscript(speechRecognizer.transcript), id: \ .self) { line in
+                                    Text(line)
+                                        .font(.body)
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                // Invisible anchor for auto-scroll
+                                Color.clear.frame(height: 1).id(lyricsBottom)
+                            }
+                            .padding()
+                        }
                         .background(Color.white.opacity(0.08))
                         .cornerRadius(12)
                         .padding(.horizontal)
+                        .onChange(of: speechRecognizer.transcript) { _ in
+                            if scrollToBottom {
+                                withAnimation {
+                                    proxy.scrollTo(lyricsBottom, anchor: .bottom)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Show AI topic and prompt only after recording is finished
+                if showAIResult {
+                    if !detectedTopic.isEmpty {
+                        Text("Topic: \(detectedTopic)")
+                            .font(.subheadline)
+                            .foregroundColor(.cyan)
+                            .padding(.horizontal)
+                        Text(journalingPrompt)
+                            .font(.body)
+                            .foregroundColor(.green)
+                            .padding(.horizontal)
+                            .padding(.top, 2)
+                    }
                 }
 
                 Spacer()
@@ -137,6 +198,24 @@ struct ContentView: View {
         } message: {
             Text("Please allow microphone access in Settings to use the recording feature.")
         }
+        .onChange(of: speechRecognizer.transcript) { newTranscript in
+            guard !newTranscript.isEmpty else {
+                detectedTopic = ""
+                journalingPrompt = ""
+                isLoadingPrompt = false
+                showAIResult = false
+                return
+            }
+            isLoadingPrompt = true
+            showAIResult = true
+            OpenAIService.shared.classifyTopicsAndPrompt(transcript: newTranscript) { topic, prompt in
+                DispatchQueue.main.async {
+                    detectedTopic = topic == "Unknown" ? "" : topic
+                    journalingPrompt = prompt
+                    isLoadingPrompt = false
+                }
+            }
+        }
     }
 
     private func toggleRecording() {
@@ -144,6 +223,45 @@ struct ContentView: View {
             audioRecorder.stopRecording()
             #if os(iOS)
             speechRecognizer.stopTranscribing()
+            let transcript = speechRecognizer.transcript
+            
+            // Reset UI state immediately
+            detectedTopic = ""
+            journalingPrompt = ""
+            isLoadingPrompt = false
+            showAIResult = false
+            
+            // Check if transcript is empty before processing
+            guard !transcript.isEmpty else {
+                // Clear transcript immediately if empty
+                speechRecognizer.transcript = ""
+                return
+            }
+            
+            // Process the transcript for AI and journal entry
+            isLoadingPrompt = true
+            showAIResult = true
+            
+            OpenAIService.shared.classifyTopicsAndPrompt(transcript: transcript) { topic, prompt in
+                DispatchQueue.main.async {
+                    self.detectedTopic = topic == "Unknown" ? "" : topic
+                    self.journalingPrompt = prompt
+                    self.isLoadingPrompt = false
+                }
+            }
+            
+            // Save journal entry
+            if let audioURL = audioRecorder.lastRecordingURL {
+                let entry = JournalEntry(date: Date(), transcript: transcript, audioURL: audioURL)
+                journalEntriesModel.entries.append(entry)
+                updateStreak(for: entry.date)
+                lastEntryDate = entry.date
+            }
+            
+            // Clear transcript AFTER using it for all necessary operations
+            DispatchQueue.main.async {
+                self.speechRecognizer.transcript = ""
+            }
             #endif
         } else {
             #if os(iOS)
@@ -156,6 +274,11 @@ struct ContentView: View {
                         } catch {
                             print("Speech recognition error: \(error)")
                         }
+                        // Reset AI result state
+                        detectedTopic = ""
+                        journalingPrompt = ""
+                        isLoadingPrompt = false
+                        showAIResult = false
                     } else {
                         showingPermissionAlert = true
                     }
@@ -166,6 +289,56 @@ struct ContentView: View {
             #endif
         }
     }
+
+    private func updateStreak(for newDate: Date) {
+        guard let last = lastEntryDate else {
+            streakCount = 1
+            return
+        }
+        let calendar = Calendar.current
+        if calendar.isDate(newDate, inSameDayAs: last) {
+            // Same day, streak unchanged
+        } else if let days = calendar.dateComponents([.day], from: last, to: newDate).day, days == 1 {
+            streakCount += 1
+        } else {
+            streakCount = 1
+        }
+    }
+
+    func splitTranscript(_ transcript: String) -> [String] {
+        // Split by sentence or every ~8 words for lyric effect
+        let words = transcript.split(separator: " ")
+        var lines: [String] = []
+        var currentLine: [Substring] = []
+        for word in words {
+            currentLine.append(word)
+            if currentLine.count >= 8 || word.hasSuffix(".") || word.hasSuffix("!") || word.hasSuffix("?") {
+                lines.append(currentLine.joined(separator: " "))
+                currentLine = []
+            }
+        }
+        if !currentLine.isEmpty {
+            lines.append(currentLine.joined(separator: " "))
+        }
+        return lines
+    }
+
+    @ViewBuilder
+    var playerSheet: some View {
+        if let url = playerURL {
+            AVPlayerView(player: AVPlayer(url: url))
+        }
+    }
+}
+
+struct AVPlayerView: UIViewControllerRepresentable {
+    let player: AVPlayer
+    func makeUIViewController(context: Context) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        controller.player = player
+        return controller
+    }
+    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {}
 }
 
 private let itemFormatter: DateFormatter = {
