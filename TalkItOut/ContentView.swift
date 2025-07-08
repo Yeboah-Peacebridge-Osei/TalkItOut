@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 import Combine
 import AVKit
+import Speech
 
 class AudioRecorder: NSObject, ObservableObject {
     private var audioRecorder: AVAudioRecorder?
