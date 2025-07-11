@@ -1,7 +1,10 @@
 import SwiftUI
+import AVKit
 
 struct ProfileView: View {
     @EnvironmentObject var journalEntriesModel: JournalEntriesModel
+    @State private var selectedEntry: JournalEntry? = nil
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -32,6 +35,9 @@ struct ProfileView: View {
                             .padding(8)
                         }
                         .frame(height: 80)
+                        .onTapGesture {
+                            selectedEntry = entry
+                        }
                     }
                 }
                 .padding(.horizontal)
@@ -39,6 +45,12 @@ struct ProfileView: View {
             .padding(.bottom, 32)
         }
         .background(Color.black.ignoresSafeArea())
+        .sheet(item: $selectedEntry) { entry in
+            JournalEntryPlaybackView(entry: entry)
+                .onAppear {
+                    print("[DEBUG] Presenting JournalEntryPlaybackView for entry: \(entry.id)")
+                }
+        }
     }
 }
 

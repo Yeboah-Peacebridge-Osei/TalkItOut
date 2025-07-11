@@ -253,10 +253,23 @@ struct ContentView: View {
             
             // Save journal entry
             if let audioURL = audioRecorder.lastRecordingURL {
-                let entry = JournalEntry(date: Date(), transcript: transcript, audioURL: audioURL)
-                journalEntriesModel.entries.append(entry)
-                updateStreak(for: entry.date)
-                lastEntryDate = entry.date
+                let fileName = UUID().uuidString + ".m4a"
+                let storagePath = "user_audios/\(fileName)"
+                StorageManager.shared.uploadFile(localFile: audioURL, path: storagePath) { result in
+                    switch result {
+                    case .success(let downloadURL):
+
+                        let entry = JournalEntry(date: Date(), transcript: transcript, audioURL: downloadURL.absoluteString)
+                        DispatchQueue.main.async {
+                            journalEntriesModel.entries.append(entry)
+                            updateStreak(for: entry.date)
+                            lastEntryDate = entry.date
+                        }
+                    case .failure(let error):
+                        print("Upload failed: \(error)")
+                        // Optionally show an error to the user
+                    }
+                }
             }
             
             // Clear transcript AFTER using it for all necessary operations
@@ -323,23 +336,6 @@ struct ContentView: View {
         }
         return lines
     }
-
-    @ViewBuilder
-    var playerSheet: some View {
-        if let url = playerURL {
-            AVPlayerView(player: AVPlayer(url: url))
-        }
-    }
-}
-
-struct AVPlayerView: UIViewControllerRepresentable {
-    let player: AVPlayer
-    func makeUIViewController(context: Context) -> AVPlayerViewController {
-        let controller = AVPlayerViewController()
-        controller.player = player
-        return controller
-    }
-    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {}
 }
 
 private let itemFormatter: DateFormatter = {

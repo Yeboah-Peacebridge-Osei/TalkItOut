@@ -53,6 +53,8 @@
 		1BCA47B62E184DEA0013A9C5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47B52E184DEA0013A9C5 /* FirebaseStorage */; };
 		1BCA47B82E184DEA0013A9C5 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47B72E184DEA0013A9C5 /* FirebaseStorageCombine-Community */; };
 		1BCA47BD2E1C49BD0013A9C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BCA47BC2E1C49BD0013A9C5 /* GoogleService-Info.plist */; };
+		1BDCEC1F2E1EC8F2005467C7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */; };
+		1BDCEC212E1F70D2005467C7 /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		1B9391B82DF7AB54006E7710 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		1BCA47BC2E1C49BD0013A9C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 		1B7BA8962DED586000C7B8F2 /* TalkItOut */ = {
 			isa = PBXGroup;
 			children = (
+				1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */,
+				1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */,
 				1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */,
 				1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */,
 				1B9391B82DF7AB54006E7710 /* MainTabView.swift */,
@@ -387,6 +393,7 @@
 			files = (
 				1B9391A92DF4D2C9006E7710 /* SpeechRecognizer.swift in Sources */,
 				1B7BA89D2DED586000C7B8F2 /* TalkItOut.xcdatamodeld in Sources */,
+				1BDCEC212E1F70D2005467C7 /* AVPlayerView.swift in Sources */,
 				1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */,
 				1B9391B32DF6548B006E7710 /* OpenAIService.swift in Sources */,
 				1B9391AF2DF603A4006E7710 /* CameraView.swift in Sources */,
@@ -397,6 +404,7 @@
 				1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */,
 				1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */,
 				1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */,
+				1BDCEC1F2E1EC8F2005467C7 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
