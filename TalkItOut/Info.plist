@@ -34,5 +34,8 @@
     <string>https://bhhdcrogsbtharhtokpl.supabase.co</string>
     <key>SUPABASE_KEY</key>
     <string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaGRjcm9nc2J0aGFyaHRva3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTExMTMsImV4cCI6MjA2NTE4NzExM30.e81CZHcmkm4pDVYsFmeICjI-HXK7asA6Z1cDFfQijhA</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+    </array>
 </dict>
 </plist>
