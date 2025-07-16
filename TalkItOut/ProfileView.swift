@@ -20,17 +20,7 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack {
-            // Calming gradient background
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color(red: 0.1, green: 0.2, blue: 0.3),
-                    Color(red: 0.2, green: 0.4, blue: 0.5),
-                    Color(red: 0.3, green: 0.5, blue: 0.6)
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            AppColors.deepCream.ignoresSafeArea()
             
             ScrollView {
                 VStack(spacing: 24) {
@@ -68,14 +58,14 @@ struct ProfileView: View {
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(.white)
+                                .foregroundColor(AppColors.deepCharcoal)
                                 .padding(12)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.white.opacity(0.15))
+                                        .fill(AppColors.paleLavender)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                                .stroke(AppColors.paleLavender.opacity(0.2), lineWidth: 1)
                                         )
                                 )
                                 .frame(maxWidth: 250)
@@ -83,14 +73,14 @@ struct ProfileView: View {
                             TextField("Bio", text: $bio)
                                 .font(.body)
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(.white.opacity(0.9))
+                                .foregroundColor(AppColors.deepCharcoal)
                                 .padding(12)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.white.opacity(0.1))
+                                        .fill(AppColors.paleLavender)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                                                .stroke(AppColors.paleLavender.opacity(0.15), lineWidth: 1)
                                         )
                                 )
                                 .frame(maxWidth: 280)
@@ -104,7 +94,7 @@ struct ProfileView: View {
                         Text("Your Journal Entries")
                             .font(.title2)
                             .fontWeight(.semibold)
-                            .foregroundColor(.white)
+                            .foregroundColor(AppColors.deepCharcoal)
                             .padding(.bottom, 8)
                         
                         if journalEntriesModel.entries.isEmpty {

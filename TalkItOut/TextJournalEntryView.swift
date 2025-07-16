@@ -3,30 +3,35 @@ import SwiftUI
 struct TextJournalEntryView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var textJournalModel: TextJournalEntriesModel
+    @State private var title: String = ""
     @State private var text: String = ""
     @State private var isSaving = false
     @State private var errorMessage: String?
     
     var body: some View {
         ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [Color(red: 0.2, green: 0.4, blue: 0.6), Color(red: 0.7, green: 0.9, blue: 0.9)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            AppColors.mistyGray.ignoresSafeArea()
             VStack(spacing: 24) {
                 Text("New Text Journal Entry")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(AppColors.deepCharcoal)
                     .padding(.top, 32)
+                // Title field
+                TextField("Title", text: $title)
+                    .padding()
+                    .background(AppColors.paleLavender)
+                    .cornerRadius(10)
+                    .font(.headline)
+                    .foregroundColor(AppColors.deepCharcoal)
+                // Main text field
                 TextEditor(text: $text)
                     .frame(height: 220)
                     .padding()
-                    .background(Color.black.opacity(0.7))
+                    .background(AppColors.paleLavender)
                     .cornerRadius(16)
                     .font(.body)
+                    .foregroundColor(AppColors.deepCharcoal)
                 if let error = errorMessage {
                     Text(error)
                         .foregroundColor(.red)
@@ -41,12 +46,12 @@ struct TextJournalEntryView: View {
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.blue.opacity(0.8))
+                            .background(AppColors.mutedTeal)
                             .foregroundColor(.white)
                             .cornerRadius(12)
                     }
                 }
-                .disabled(isSaving || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled(isSaving || title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 Spacer()
             }
             .padding()
@@ -55,15 +60,20 @@ struct TextJournalEntryView: View {
     
     private func saveEntry() {
         errorMessage = nil
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
+        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedTitle.isEmpty else {
+            errorMessage = "Please enter a title."
+            return
+        }
+        guard !trimmedText.isEmpty else {
             errorMessage = "Please enter some text."
             return
         }
         isSaving = true
         // Save text to Firebase Storage
         let filename = "text_entries/\(UUID().uuidString).txt"
-        guard let data = trimmed.data(using: .utf8) else {
+        guard let data = trimmedText.data(using: .utf8) else {
             errorMessage = "Failed to encode text."
             isSaving = false
             return
@@ -73,7 +83,7 @@ struct TextJournalEntryView: View {
                 isSaving = false
                 switch result {
                 case .success(let url):
-                    let entry = JournalEntry(date: Date(), text: url.absoluteString)
+                    let entry = JournalEntry(date: Date(), title: trimmedTitle, text: url.absoluteString)
                     textJournalModel.entries.insert(entry, at: 0)
                     presentationMode.wrappedValue.dismiss()
                 case .failure(let error):

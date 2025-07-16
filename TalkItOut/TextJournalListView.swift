@@ -8,42 +8,68 @@ struct TextJournalListView: View {
     @EnvironmentObject var textJournalModel: TextJournalEntriesModel
     @State private var showNewEntry = false
     @State private var selectedEntry: JournalEntry? = nil
+    @State private var searchText: String = ""
+    @State private var selectedType: JournalEntry.EntryType? = nil // nil = all
+    
+    var filteredEntries: [JournalEntry] {
+        textJournalModel.entries.filter { entry in
+            let matchesType = selectedType == nil || entry.type == selectedType
+            let matchesSearch = searchText.isEmpty || (entry.text?.localizedCaseInsensitiveContains(searchText) ?? false)
+            return matchesType && matchesSearch
+        }
+    }
     
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color(red: 0.2, green: 0.4, blue: 0.6), Color(red: 0.7, green: 0.9, blue: 0.9)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                AppColors.deepCream.ignoresSafeArea()
                 VStack {
-                    if textJournalModel.entries.isEmpty {
+                    // Search bar
+                    HStack {
+                        TextField("Search entries...", text: $searchText)
+                            .padding(8)
+                            .background(AppColors.paleLavender)
+                            .cornerRadius(8)
+                            .foregroundColor(AppColors.deepCharcoal)
+                        // Filter by type
+                        Menu {
+                            Button("All", action: { selectedType = nil })
+                            Button("Text", action: { selectedType = .text })
+                            Button("Audio", action: { selectedType = .audio })
+                        } label: {
+                            Label(selectedType == nil ? "All" : (selectedType == .text ? "Text" : "Audio"), systemImage: "line.3.horizontal.decrease.circle")
+                                .padding(8)
+                                .background(AppColors.paleLavender)
+                                .cornerRadius(8)
+                                .foregroundColor(AppColors.deepCharcoal)
+                        }
+                    }
+                    .padding([.horizontal, .top])
+                    if filteredEntries.isEmpty {
                         Spacer()
                         Image(systemName: "book.closed.fill")
                             .font(.system(size: 48))
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(AppColors.softNavy.opacity(0.7))
                         Text("No text journal entries yet.")
                             .font(.headline)
-                            .foregroundColor(.white.opacity(0.8))
+                            .foregroundColor(AppColors.deepCharcoal)
                         Spacer()
                     } else {
                         List {
-                            ForEach(textJournalModel.entries) { entry in
+                            ForEach(filteredEntries) { entry in
                                 Button(action: { selectedEntry = entry }) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(entry.date, style: .date)
                                             .font(.caption)
-                                            .foregroundColor(.gray)
-                                        Text(entry.text ?? "")
-                                            .font(.body)
-                                            .lineLimit(2)
-                                            .foregroundColor(.primary)
+                                            .foregroundColor(AppColors.deepCharcoal)
+                                        // Show title if available, else fallback to first line of text
+                                        Text(entry.title ?? (entry.text ?? "").components(separatedBy: "\n").first ?? "Untitled")
+                                            .font(.headline)
+                                            .foregroundColor(AppColors.deepCharcoal)
                                     }
                                     .padding(.vertical, 6)
                                 }
-                                .listRowBackground(Color.white.opacity(0.08))
+                                .listRowBackground(AppColors.paleLavender)
                             }
                         }
                         .listStyle(PlainListStyle())
@@ -55,6 +81,10 @@ struct TextJournalListView: View {
                         Button(action: { showNewEntry = true }) {
                             Image(systemName: "plus")
                                 .font(.title2)
+                                .foregroundColor(.white)
+                                .padding(8)
+                                .background(AppColors.mutedTeal)
+                                .cornerRadius(8)
                         }
                     }
                 }
@@ -66,35 +96,6 @@ struct TextJournalListView: View {
                     TextJournalDetailView(entry: entry)
                 }
             }
-        }
-    }
-}
-
-struct TextJournalDetailView: View {
-    let entry: JournalEntry
-    var body: some View {
-        ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [Color(red: 0.2, green: 0.4, blue: 0.6), Color(red: 0.7, green: 0.9, blue: 0.9)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 24) {
-                Text(entry.date, style: .date)
-                    .font(.headline)
-                    .foregroundColor(.white.opacity(0.8))
-                ScrollView {
-                    Text(entry.text ?? "")
-                        .font(.title3)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.white.opacity(0.12))
-                        .cornerRadius(12)
-                }
-                Spacer()
-            }
-            .padding()
         }
     }
 }

@@ -94,7 +94,7 @@ struct ContentView: View {
                     Text("Talk it and let it all out")
                         .font(.title2)
                         .italic()
-                        .foregroundColor(.white)
+                        .foregroundColor(AppColors.deepCharcoal)
                         .padding(.top, 40)
                 }
                 // Streak indicator
@@ -123,10 +123,10 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(currentTime)
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(AppColors.deepCharcoal)
                     Text("New Entry")
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .foregroundColor(AppColors.deepCharcoal)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -139,7 +139,7 @@ struct ContentView: View {
                                 ForEach(splitTranscript(speechRecognizer.transcript), id: \ .self) { line in
                                     Text(line)
                                         .font(.body)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(AppColors.deepCharcoal)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                                 // Invisible anchor for auto-scroll
@@ -165,11 +165,11 @@ struct ContentView: View {
                     if !detectedTopic.isEmpty {
                         Text("Topic: \(detectedTopic)")
                             .font(.subheadline)
-                            .foregroundColor(.cyan)
+                            .foregroundColor(AppColors.deepCharcoal)
                             .padding(.horizontal)
                         Text(journalingPrompt)
                             .font(.body)
-                            .foregroundColor(.green)
+                            .foregroundColor(AppColors.deepCharcoal)
                             .padding(.horizontal)
                             .padding(.top, 2)
                     }
@@ -193,7 +193,7 @@ struct ContentView: View {
             .padding([.bottom, .trailing], 32)
             .shadow(radius: 8)
         }
-        .background(Color(.black).ignoresSafeArea())
+        .background(AppColors.deepCream.ignoresSafeArea())
         .alert("Microphone Access Required", isPresented: $showingPermissionAlert) {
             Button("OK", role: .cancel) { }
         } message: {

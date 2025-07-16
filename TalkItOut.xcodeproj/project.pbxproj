@@ -20,6 +20,8 @@
 		1B7BA8AF2DED586200C7B8F2 /* TalkItOutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8AE2DED586200C7B8F2 /* TalkItOutTests.swift */; };
 		1B7BA8B92DED586200C7B8F2 /* TalkItOutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8B82DED586200C7B8F2 /* TalkItOutUITests.swift */; };
 		1B7BA8BB2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8BA2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift */; };
+		1B8237932E281C7E00FDA663 /* TextJournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8237922E281C7E00FDA663 /* TextJournalDetailView.swift */; };
+		1B8237952E28231000FDA663 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8237942E28231000FDA663 /* ColorPalette.swift */; };
 		1B9391A92DF4D2C9006E7710 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */; };
 		1B9391AF2DF603A4006E7710 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391AE2DF603A4006E7710 /* CameraView.swift */; };
 		1B9391B12DF64CEE006E7710 /* SentimentAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */; };
@@ -96,6 +98,8 @@
 		1B7BA8B42DED586200C7B8F2 /* TalkItOutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TalkItOutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7BA8B82DED586200C7B8F2 /* TalkItOutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutUITests.swift; sourceTree = "<group>"; };
 		1B7BA8BA2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1B8237922E281C7E00FDA663 /* TextJournalDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextJournalDetailView.swift; sourceTree = "<group>"; };
+		1B8237942E28231000FDA663 /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		1B9391AC2DF568CE006E7710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9391AE2DF603A4006E7710 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		1B7BA8962DED586000C7B8F2 /* TalkItOut */ = {
 			isa = PBXGroup;
 			children = (
+				1B8237942E28231000FDA663 /* ColorPalette.swift */,
+				1B8237922E281C7E00FDA663 /* TextJournalDetailView.swift */,
 				1B2134DB2E23291400FBBC05 /* TextJournalListView.swift */,
 				1B2134D92E23241600FBBC05 /* TextJournalEntryView.swift */,
 				1B2134D72E22C44A00FBBC05 /* OnboardingView.swift */,
@@ -405,6 +411,7 @@
 			files = (
 				1B9391A92DF4D2C9006E7710 /* SpeechRecognizer.swift in Sources */,
 				1B7BA89D2DED586000C7B8F2 /* TalkItOut.xcdatamodeld in Sources */,
+				1B8237932E281C7E00FDA663 /* TextJournalDetailView.swift in Sources */,
 				1BDCEC212E1F70D2005467C7 /* AVPlayerView.swift in Sources */,
 				1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */,
 				1B9391B32DF6548B006E7710 /* OpenAIService.swift in Sources */,
@@ -417,6 +424,7 @@
 				1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */,
 				1BB1A26A2E21990100F5E023 /* AuthView.swift in Sources */,
 				1B2134DC2E23291400FBBC05 /* TextJournalListView.swift in Sources */,
+				1B8237952E28231000FDA663 /* ColorPalette.swift in Sources */,
 				1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */,
 				1B2134D82E22C44A00FBBC05 /* OnboardingView.swift in Sources */,
 				1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */,
