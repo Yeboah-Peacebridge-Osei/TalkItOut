@@ -34,6 +34,32 @@ class StorageManager {
         }
     }
     
+    /// Uploads a text file (from Data) to Firebase Storage and returns the download URL on success.
+    /// - Parameters:
+    ///   - data: The text data to upload.
+    ///   - path: The path in Firebase Storage (e.g., "text_entries/filename.txt").
+    ///   - completion: Completion handler with Result<URL, Error>.
+    func uploadText(data: Data, path: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let storageRef = storage.reference().child(path)
+        let metadata = StorageMetadata()
+        metadata.contentType = "text/plain"
+        storageRef.putData(data, metadata: metadata) { metadata, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let url = url {
+                    completion(.success(url))
+                } else {
+                    completion(.failure(NSError(domain: "StorageManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown error getting download URL"])) )
+                }
+            }
+        }
+    }
+    
     /// Helper to determine content type from file extension
     private func contentType(for url: URL) -> String {
         switch url.pathExtension.lowercased() {

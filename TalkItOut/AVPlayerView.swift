@@ -33,7 +33,7 @@ struct JournalEntryPlaybackView: View {
                 .padding(.horizontal)
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
-                    ForEach(splitTranscript(entry.transcript), id: \ .self) { line in
+                    ForEach(splitTranscript(entry.transcript ?? ""), id: \.self) { line in
                         Text(line)
                             .font(.body)
                             .foregroundColor(.white)
@@ -58,15 +58,15 @@ struct JournalEntryPlaybackView: View {
                 print("[ERROR] Failed to set AVAudioSession for playback: \(error)")
             }
             if player == nil {
-                print("[DEBUG] Attempting to create AVPlayer with URL: \(entry.audioURL)")
-                if let url = URL(string: entry.audioURL) {
+                if let audioURLString = entry.audioURL, let url = URL(string: audioURLString) {
+                    print("[DEBUG] Attempting to create AVPlayer with URL: \(audioURLString)")
                     let newPlayer = AVPlayer(url: url)
                     player = newPlayer
                     print("[DEBUG] AVPlayer created. Starting playback...")
                     newPlayer.play()
                     print("[DEBUG] AVPlayer play() called.")
                 } else {
-                    print("[ERROR] Invalid audio URL: \(entry.audioURL)")
+                    print("[ERROR] Invalid or missing audio URL for this entry.")
                 }
             }
         }

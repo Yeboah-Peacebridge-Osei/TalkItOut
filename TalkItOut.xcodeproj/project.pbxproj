@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B2134D82E22C44A00FBBC05 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2134D72E22C44A00FBBC05 /* OnboardingView.swift */; };
+		1B2134DA2E23241600FBBC05 /* TextJournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2134D92E23241600FBBC05 /* TextJournalEntryView.swift */; };
+		1B2134DC2E23291400FBBC05 /* TextJournalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2134DB2E23291400FBBC05 /* TextJournalListView.swift */; };
 		1B4B5C1A2DF8C641005F9638 /* JournalEntriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */; };
 		1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */; };
 		1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7BA8992DED586000C7B8F2 /* Persistence.swift */; };
@@ -25,6 +28,8 @@
 		1B9391B72DF7A2D5006E7710 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */; };
 		1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391B82DF7AB54006E7710 /* MainTabView.swift */; };
 		1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */; };
+		1BB1A26A2E21990100F5E023 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1A2692E21990000F5E023 /* AuthView.swift */; };
+		1BB1A26F2E21AD9700F5E023 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BB1A26E2E21AD9700F5E023 /* GoogleService-Info.plist */; };
 		1BCA47842E184DEA0013A9C5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47832E184DEA0013A9C5 /* FirebaseAnalytics */; };
 		1BCA47862E184DEA0013A9C5 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47852E184DEA0013A9C5 /* FirebaseAnalyticsOnDeviceConversion */; };
 		1BCA47882E184DEA0013A9C5 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47872E184DEA0013A9C5 /* FirebaseAnalyticsSwift */; };
@@ -52,7 +57,6 @@
 		1BCA47B42E184DEA0013A9C5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47B32E184DEA0013A9C5 /* FirebaseRemoteConfigSwift */; };
 		1BCA47B62E184DEA0013A9C5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47B52E184DEA0013A9C5 /* FirebaseStorage */; };
 		1BCA47B82E184DEA0013A9C5 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCA47B72E184DEA0013A9C5 /* FirebaseStorageCombine-Community */; };
-		1BCA47BD2E1C49BD0013A9C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BCA47BC2E1C49BD0013A9C5 /* GoogleService-Info.plist */; };
 		1BDCEC1F2E1EC8F2005467C7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */; };
 		1BDCEC212E1F70D2005467C7 /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +79,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B2134D72E22C44A00FBBC05 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1B2134D92E23241600FBBC05 /* TextJournalEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextJournalEntryView.swift; sourceTree = "<group>"; };
+		1B2134DB2E23291400FBBC05 /* TextJournalListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextJournalListView.swift; sourceTree = "<group>"; };
 		1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntriesModel.swift; sourceTree = "<group>"; };
 		1B7BA8942DED586000C7B8F2 /* TalkItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutApp.swift; sourceTree = "<group>"; };
@@ -90,7 +97,7 @@
 		1B7BA8B82DED586200C7B8F2 /* TalkItOutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutUITests.swift; sourceTree = "<group>"; };
 		1B7BA8BA2DED586200C7B8F2 /* TalkItOutUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkItOutUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
-		1B9391AC2DF568CE006E7710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = TalkItOut/Info.plist; sourceTree = "<group>"; };
+		1B9391AC2DF568CE006E7710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9391AE2DF603A4006E7710 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentAnalyzer.swift; sourceTree = "<group>"; };
 		1B9391B22DF6548B006E7710 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
@@ -98,7 +105,8 @@
 		1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		1B9391B82DF7AB54006E7710 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		1B9391BA2DF7AF5F006E7710 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		1BCA47BC2E1C49BD0013A9C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1BB1A2692E21990000F5E023 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		1BB1A26E2E21AD9700F5E023 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,7 +166,6 @@
 		1B7BA88B2DED585F00C7B8F2 = {
 			isa = PBXGroup;
 			children = (
-				1B9391AC2DF568CE006E7710 /* Info.plist */,
 				1B7BA8962DED586000C7B8F2 /* TalkItOut */,
 				1B7BA8AD2DED586200C7B8F2 /* TalkItOutTests */,
 				1B7BA8B72DED586200C7B8F2 /* TalkItOutUITests */,
@@ -179,6 +186,11 @@
 		1B7BA8962DED586000C7B8F2 /* TalkItOut */ = {
 			isa = PBXGroup;
 			children = (
+				1B2134DB2E23291400FBBC05 /* TextJournalListView.swift */,
+				1B2134D92E23241600FBBC05 /* TextJournalEntryView.swift */,
+				1B2134D72E22C44A00FBBC05 /* OnboardingView.swift */,
+				1BB1A26E2E21AD9700F5E023 /* GoogleService-Info.plist */,
+				1BB1A2692E21990000F5E023 /* AuthView.swift */,
 				1BDCEC202E1F70D1005467C7 /* AVPlayerView.swift */,
 				1BDCEC1E2E1EC8F1005467C7 /* StorageManager.swift */,
 				1B4B5C192DF8C641005F9638 /* JournalEntriesModel.swift */,
@@ -186,11 +198,11 @@
 				1B9391B82DF7AB54006E7710 /* MainTabView.swift */,
 				1B9391B62DF7A2D5006E7710 /* JournalEntry.swift */,
 				1B9391B42DF6549E006E7710 /* Secrets.plist */,
+				1B9391AC2DF568CE006E7710 /* Info.plist */,
 				1B9391B22DF6548B006E7710 /* OpenAIService.swift */,
 				1B9391B02DF64CED006E7710 /* SentimentAnalyzer.swift */,
 				1B9391AE2DF603A4006E7710 /* CameraView.swift */,
 				1B9391A82DF4D2C9006E7710 /* SpeechRecognizer.swift */,
-				1BCA47BC2E1C49BD0013A9C5 /* GoogleService-Info.plist */,
 				1B7BA8972DED586000C7B8F2 /* TalkItOutApp.swift */,
 				1B7BA8992DED586000C7B8F2 /* Persistence.swift */,
 				1B7BA89E2DED586000C7B8F2 /* ContentView.swift */,
@@ -364,7 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B7BA8A52DED586200C7B8F2 /* Preview Assets.xcassets in Resources */,
-				1BCA47BD2E1C49BD0013A9C5 /* GoogleService-Info.plist in Resources */,
+				1BB1A26F2E21AD9700F5E023 /* GoogleService-Info.plist in Resources */,
 				1B9391B52DF6549E006E7710 /* Secrets.plist in Resources */,
 				1B7BA8A12DED586200C7B8F2 /* Assets.xcassets in Resources */,
 			);
@@ -397,12 +409,16 @@
 				1B7BA8982DED586000C7B8F2 /* TalkItOutApp.swift in Sources */,
 				1B9391B32DF6548B006E7710 /* OpenAIService.swift in Sources */,
 				1B9391AF2DF603A4006E7710 /* CameraView.swift in Sources */,
+				1B2134DA2E23241600FBBC05 /* TextJournalEntryView.swift in Sources */,
 				1B7BA89F2DED586000C7B8F2 /* ContentView.swift in Sources */,
 				1B4B5C1A2DF8C641005F9638 /* JournalEntriesModel.swift in Sources */,
 				1B9391B72DF7A2D5006E7710 /* JournalEntry.swift in Sources */,
 				1B9391B12DF64CEE006E7710 /* SentimentAnalyzer.swift in Sources */,
 				1B7BA89A2DED586000C7B8F2 /* Persistence.swift in Sources */,
+				1BB1A26A2E21990100F5E023 /* AuthView.swift in Sources */,
+				1B2134DC2E23291400FBBC05 /* TextJournalListView.swift in Sources */,
 				1B9391BB2DF7AF5F006E7710 /* ProfileView.swift in Sources */,
+				1B2134D82E22C44A00FBBC05 /* OnboardingView.swift in Sources */,
 				1B9391B92DF7AB54006E7710 /* MainTabView.swift in Sources */,
 				1BDCEC1F2E1EC8F2005467C7 /* StorageManager.swift in Sources */,
 			);
